@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const ANIME_URL = "https://shikimori.one/api/animes";
+
+const ANIME_URL = `https://shikimori.one/api/animes?page=1&limit=10`;
 
 
 const initialState = {
     status: "idle",
     error: null,
+   
 }
 
 export const fetchAnime = createAsyncThunk("anime/fetchAnime", async()=>{
