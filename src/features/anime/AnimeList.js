@@ -2,27 +2,22 @@ import { useSelector } from "react-redux";
 import { selectAllAnime, getAnimeStatus, getAnimeError } from "./animeSlice";
 import AnimeExcerpt from "./AnimeExcerpt";
 
+const AnimeList = () => {
+  const animePosts = useSelector(selectAllAnime);
+  const animeStatus = useSelector(getAnimeStatus);
+  const animeError = useSelector(getAnimeError);
+ 
 
-const AnimeList = () =>{
-    const animePosts = useSelector(selectAllAnime);
-    const animeStatus = useSelector(getAnimeStatus);
-    const animeError = useSelector(getAnimeError);
-    console.log(animePosts)
-    
-    let content;
+  
 
-    if (animeStatus === "loading"){
-        content = <p>Loading...</p>;
-    }else if (animeStatus === "succeeded"){
-        content = animePosts?.map(animeId => <AnimeExcerpt key={animeId} animeId={animeId}/>)
-    }else if(animeStatus === "failed"){
-        content = <p>{animeError}</p>;
-    }
+  if (animeStatus === "loading") {
+    return <h2>Loading...</h2>;
+  }
+  if (animeStatus === "failed") {
+    return <p>{animeError}</p>;
+  }
 
-    return (
-        <section>
-            {content}
-        </section>
-    )
-}
-export default AnimeList
+  
+return <section>{animePosts.map(anime => <AnimeExcerpt key={anime.id} anime={anime}/> )}</section>;
+};
+export default AnimeList;

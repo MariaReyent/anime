@@ -1,19 +1,23 @@
-import {  useSelector } from "react-redux";
-import {  selectAllAnime, selectAnimeById } from "./animeSlice";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
-
-const AnimeExcerpt = ({animeId}) => {
-//    const anime = useSelector(state => selectAnimeById(state, animeId));
-   const anime = useSelector(selectAllAnime);
-   
-    if (!anime){
+const AnimeExcerpt = ({anime}) => {
+  const {id} = useParams();
+  
+  if (!anime){
         return <h2>Couldnt find anime</h2>
     }
+  
+   
+    const imageUrl =anime.image.original;
+
     return (
        <article>
-            <h2 >{anime.name}</h2>
+        <img src={imageUrl} alt={anime.name} />
+            <h2>{anime.name}</h2>
             <p>{anime.aired_on}</p>
+            <Link to= { `/animes/${id}`}>View Anime</Link>
         </article>
        
     )
